@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:push": "node --env-file=.env.local scripts/db-push.mjs",
+    "seed": "node --env-file=.env.local scripts/seed.mjs",
+    "loadtest": "node --env-file=.env.local scripts/load-test.mjs"
   },
   "dependencies": {
     "@aws-sdk/dsql-signer": "^3.1073.0",
