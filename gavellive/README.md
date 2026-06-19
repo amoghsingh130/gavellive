@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GavelLive
 
-## Getting Started
+Real-time global auction house. Next.js (App Router) on Vercel, Aurora DSQL as
+the strong-consistency source of truth. See `../handoff.md` and
+`../BUILD_STEPS.md` for the full plan.
 
-First, run the development server:
+## Status
+
+Phase 1 foundation — **DB seam verified** ✅ (`GET /api/health/db` returns
+`{ ok: true }` against the live DSQL cluster: IAM-token auth, TLS, and a `pg`
+query round-trip all confirmed working).
+
+- `src/lib/db.ts` — DSQL connection helper (IAM-token auth, short-lived clients).
+- `src/app/api/health/db/route.ts` — `GET /api/health/db` runs `SELECT 1`.
+- `db/schema.sql` — defensive, DSQL-aware schema (no FKs; app-enforced integrity).
+- `src/lib/types.ts` — domain types mirroring the schema.
+
+Remaining in Phase 1: apply `db/schema.sql` to the cluster (capability spike).
+Next: Phase 2 — place-bid transaction + OCC retry loop.
+
+## Run locally
 
 ```bash
+cp .env.example .env.local   # fill in DSQL + AWS values
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then hit http://localhost:3000/api/health/db — expect `{ "ok": true, ... }`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Apply the schema
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+After the Phase 1 capability spike confirms each statement, run `db/schema.sql`
+against the cluster, e.g. with a freshly generated IAM token:
 
-## Learn More
+```bash
+set -a; source .env.local; set +a
+PGPASSWORD="$(aws dsql generate-db-connect-admin-auth-token --hostname "$DSQL_ENDPOINT" --region "$AWS_REGION")" \
+  psql --host="$DSQL_ENDPOINT" --port=5432 --username=admin --dbname=postgres \
+  --set=sslmode=require -f db/schema.sql
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Clerk auth (next step — needs keys)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Clerk is installed but not yet wired into the render path, so the app builds and
+runs with zero env vars. To activate once you have keys:
+1. Add `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` to `.env.local`.
+2. Add `middleware.ts` with `clerkMiddleware()`.
+3. Wrap `src/app/layout.tsx` in `<ClerkProvider>`.
+4. On first authenticated action, upsert a `users` row keyed by `clerk_id`.
