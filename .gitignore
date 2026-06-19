@@ -1,0 +1,7 @@
+.DS_Store
+*.log
+
+# Env files (the Next scaffold also ignores these inside gavellive/)
+.env
+.env.*
+!.env.example
