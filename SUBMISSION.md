@@ -6,6 +6,16 @@
 
 ---
 
+## Submission links
+
+- **Live app (Vercel):** https://gavellive.vercel.app
+- **Vercel Team ID:** `team_eoMiFbLGXTmAn1UJyuQgzbgc`
+- **Live API examples:** `GET https://gavellive.vercel.app/api/health/db` ·
+  `GET https://gavellive.vercel.app/api/auctions`
+- **Architecture diagram:** see `ARCHITECTURE.md`
+
+---
+
 ## Elevator pitch (≤ 200 chars)
 
 A live auction house that proves correctness under fire: thousands of concurrent
