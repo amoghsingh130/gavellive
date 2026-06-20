@@ -1,7 +1,46 @@
 # GavelLive — H0 Hackathon Handoff
 
-> Initial handoff for the H0 Hackathon (*Hack the Zero Stack with Vercel v0 + AWS Databases*).
-> Status: **Pre-build / planning complete.** No code yet — greenfield directory.
+> Handoff for the H0 Hackathon (*Hack the Zero Stack with Vercel v0 + AWS Databases*).
+> Status: **Backend built, proven, and deployed to production.** UI is the last build item.
+
+---
+
+## 0. Current state (updated 2026-06-19)
+
+**Live in production:** https://gavellive.vercel.app · Vercel Team ID `team_eoMiFbLGXTmAn1UJyuQgzbgc`
+
+Next.js app lives in `gavellive/` (the project root is its own dedicated git repo;
+the home dir is a separate accidental repo — do NOT commit there). No git remote yet.
+
+**Done:**
+- ✅ **Phase 1 — Foundation:** Aurora DSQL cluster ACTIVE (single-region us-east-1);
+  IAM-token auth from serverless (`src/lib/db.ts`); schema applied (`db/schema.sql`,
+  all statements accepted — no FKs, app-enforced integrity); `/api/health/db` green
+  **from the deployed Vercel function** (DSQL-from-production confirmed).
+- ✅ **Phase 2 — Correctness core:** `src/lib/bids.ts` serializable place-bid txn +
+  OCC retry loop + anti-snipe; `POST /api/auctions/[id]/bids`.
+- ✅ **Phase 5 — Load test:** `scripts/load-test.mjs` — 300 concurrent bids → 0 lost
+  writes, exactly one winner, all invariants hold on real DSQL (414 OCC retries seen).
+- ✅ **Read APIs + winner finalization:** `src/lib/auctions.ts`; `GET /api/auctions`,
+  `GET /api/auctions/[id]`, `POST /api/auctions/[id]/close` (lazy close-on-read).
+- ✅ **Deployed to Vercel** (prod env vars set; Deployment Protection = Only Preview).
+- ✅ **Submission assets drafted:** `ARCHITECTURE.md`, `SUBMISSION.md`.
+- npm scripts: `db:push`, `seed`, `loadtest` (all use `node --env-file=.env.local`).
+
+**Decisions settled since planning:** Auth = **Clerk** (installed, NOT yet wired —
+build/dev run with zero env vars; activation steps in `gavellive/README.md`).
+DSQL = single-region us-east-1. Deadline "weeks out" (Phase 4 push in scope).
+**v0 is OPTIONAL per official rules** — mandatory reqs are AWS DB (✅ DSQL) + deploy on
+Vercel **or** v0 (✅ Vercel). Both already met; UI can be hand-built, no v0 needed.
+
+**Next (highest ROI):** build the auction **UI** (list / detail / live countdown /
+bid form / outbid feedback), wire to the live API with ~750ms polling, redeploy.
+Then: demo video + AWS console screenshot. Optional later: wire Clerk; DynamoDB fanout.
+
+**Credits:** request form submitted 2026-06-19 (Track 3). $100 AWS credits expire
+**Dec 31 2026**; $30 v0 credits expire **July 13 2026** (codes go to asingh3206@gatech.edu;
+redeem AWS code in the same account as the DSQL cluster). Verify Devpost registration
+is complete or the request is declined.
 
 ---
 
@@ -135,7 +174,9 @@ v0-scaffolded Next.js (App Router) ── deployed on Vercel
 
 ## 9. Open items
 
-- **Confirm actual deadline date** → drives phase sequencing.
-- Complete v0/AWS credits request form (answer: *Global-scale data-intensive app*).
-- Choose real-time transport: API Gateway WebSockets vs AppSync subscriptions (decide in Phase 4).
-- Decide auth provider (Clerk vs Auth.js).
+- ~~Confirm deadline~~ → "weeks out" (Phase 4 push in scope, multi-region optional).
+- ~~Complete v0/AWS credits request form~~ → submitted 2026-06-19. Still TODO: confirm
+  Devpost registration is complete; redeem codes when they arrive.
+- ~~Decide auth provider~~ → **Clerk** (installed; wire when keys available).
+- Choose real-time transport: API Gateway WebSockets vs AppSync subscriptions (Phase 4, if reached).
+- Build the UI (hand-built — v0 optional per rules), then record demo video + grab AWS console screenshot.
