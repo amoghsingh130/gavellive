@@ -40,7 +40,7 @@ Required by the rules and the only missing asset.
 | **Full description** | Paste the **Ready-to-paste description** block below. |
 | **Built with** (tags) | nextjs, vercel, v0, amazon-aurora-dsql, typescript, node-postgres, aws-sdk |
 | **Track / category** | Million-scale global app |
-| **Try it out links** | `https://gavellive.vercel.app` · Vercel Team ID `team_eoMiFbLGXTmAn1UJyuQgzbgc` |
+| **Try it out links** | `https://gavellive.vercel.app` · GitHub `https://github.com/amoghsingh130/gavellive` · Vercel Team ID `team_eoMiFbLGXTmAn1UJyuQgzbgc` |
 | **Video demo** | https://www.youtube.com/watch?v=VnD1zPqk2Gs (confirm Public or Unlisted, **not** Private) |
 | **Image gallery** | Upload `01-system.png` **first** (becomes thumbnail), then `dsql-cluster.png`. |
 
