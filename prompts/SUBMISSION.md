@@ -9,6 +9,7 @@
 ## Submission links
 
 - **Live app (Vercel):** https://gavellive.vercel.app
+- **Demo video (YouTube):** https://www.youtube.com/watch?v=VnD1zPqk2Gs
 - **Vercel Team ID:** `team_eoMiFbLGXTmAn1UJyuQgzbgc`
 - **Live API examples:** `GET https://gavellive.vercel.app/api/health/db` ·
   `GET https://gavellive.vercel.app/api/auctions`

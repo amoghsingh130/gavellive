@@ -41,7 +41,7 @@ Required by the rules and the only missing asset.
 | **Built with** (tags) | nextjs, vercel, v0, amazon-aurora-dsql, typescript, node-postgres, aws-sdk |
 | **Track / category** | Million-scale global app |
 | **Try it out links** | `https://gavellive.vercel.app` · Vercel Team ID `team_eoMiFbLGXTmAn1UJyuQgzbgc` |
-| **Video demo** | YouTube URL (must be Public or Unlisted, **not** Private) |
+| **Video demo** | https://www.youtube.com/watch?v=VnD1zPqk2Gs (confirm Public or Unlisted, **not** Private) |
 | **Image gallery** | Upload `01-system.png` **first** (becomes thumbnail), then `dsql-cluster.png`. |
 
 ---

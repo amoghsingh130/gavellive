@@ -8,6 +8,7 @@ exactly one winner. That guarantee comes from **Amazon Aurora DSQL**.
 > Built for the **H0 Hackathon** (Hack the Zero Stack with Vercel v0 + AWS Databases).
 
 🔗 **Live app:** https://gavellive.vercel.app
+&nbsp;·&nbsp; 🎬 **Demo video:** https://www.youtube.com/watch?v=VnD1zPqk2Gs
 &nbsp;·&nbsp; **Health check:** [`/api/health/db`](https://gavellive.vercel.app/api/health/db)
 &nbsp;·&nbsp; **Auctions API:** [`/api/auctions`](https://gavellive.vercel.app/api/auctions)
 
