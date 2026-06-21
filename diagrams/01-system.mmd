@@ -1,0 +1,27 @@
+%%{init: {"flowchart": {"htmlLabels": true, "nodeSpacing": 60, "rankSpacing": 70}, "themeVariables": {"fontSize": "20px"}}}%%
+flowchart TB
+    subgraph Client["Browser"]
+        UI["Next.js App Router UI<br/>(scaffolded with v0)"]
+    end
+
+    subgraph Vercel["Vercel"]
+        direction TB
+        WRITE["POST /api/auctions/:id/bids<br/>Route Handler (Node runtime)"]
+        READ["GET /api/auctions(/:id)<br/>Route Handler (Node runtime)"]
+        CLOSE["POST /api/auctions/:id/close<br/>winner finalization"]
+        BIDLIB["lib/bids.ts<br/>serializable place-bid txn<br/>+ OCC retry + anti-snipe"]
+        AUCLIB["lib/auctions.ts<br/>reads + lazy close-on-read"]
+    end
+
+    subgraph AWS["AWS"]
+        DSQL[("Aurora DSQL<br/>source of truth<br/>users · auctions · bids")]
+    end
+
+    UI -- "place bid" --> WRITE
+    UI -- "poll ~750ms" --> READ
+    UI -- "finalize" --> CLOSE
+    WRITE --> BIDLIB
+    READ --> AUCLIB
+    CLOSE --> AUCLIB
+    BIDLIB -- "IAM-token auth · TLS<br/>serializable txn (OCC)" --> DSQL
+    AUCLIB -- "IAM-token auth · TLS" --> DSQL

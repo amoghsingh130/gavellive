@@ -1,26 +1,140 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * GavelLive design system — bold light "hybrid" (Kalshi × PrizePicks).
+ * Warm off-white canvas, crisp white surfaces, one vivid electric-indigo accent
+ * for the brand/CTAs, emerald for the high bidder / up, rose for outbid / down.
+ * Geist Mono with tabular-nums carries every price + countdown so digits never
+ * jitter (the financial read).
+ */
+@theme {
+  --color-ink: #f6f6f9; /* page canvas */
+  --color-ink-2: #ecedf3; /* deeper wash / gradient stop */
+  --color-surface: #ffffff; /* cards / panels */
+  --color-surface-2: #f3f4f8; /* nested surfaces */
+  --color-border: #e3e5ec; /* default borders */
+  --color-border-soft: #edeef3; /* hairlines */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-accent: #5b3df5; /* electric indigo — brand + CTAs */
+  --color-accent-2: #7c5cff; /* lighter indigo for gradients */
+  --color-accent-soft: #ece8ff; /* pale indigo backgrounds */
+  --color-emerald: #07a96a; /* high bidder / up */
+  --color-emerald-soft: #d8f6e9;
+  --color-rose: #ef3a5d; /* outbid / down */
+  --color-rose-soft: #ffe0e6;
+
+  --color-text: #0d0d14; /* near-black */
+  --color-text-muted: #585c6b;
+  --color-text-faint: #9498a8;
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Light wash with a faint electric-indigo + emerald glow up top. */
+  background-image:
+    radial-gradient(
+      120% 80% at 50% -10%,
+      rgba(91, 61, 245, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      70% 50% at 100% 0%,
+      rgba(7, 169, 106, 0.06),
+      transparent 55%
+    );
+  background-attachment: fixed;
+}
+
+/* Tabular numerals everywhere we render money or time. */
+.nums {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+@keyframes snipe-flash {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 58, 93, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(239, 58, 93, 0.3);
+  }
+}
+.animate-snipe {
+  animation: snipe-flash 0.7s ease-in-out 2;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-pop {
+  animation: pop-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes check-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-check {
+  animation: check-in 0.35s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Slim, light scrollbars for scroll regions. */
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
+}
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Soft elevated card shadow for the bold, app-like surfaces. */
+.shadow-card {
+  box-shadow:
+    0 1px 2px rgba(13, 13, 20, 0.04),
+    0 8px 24px -12px rgba(13, 13, 20, 0.12);
+}
+.shadow-card-lg {
+  box-shadow:
+    0 2px 4px rgba(13, 13, 20, 0.05),
+    0 24px 48px -20px rgba(13, 13, 20, 0.22);
 }

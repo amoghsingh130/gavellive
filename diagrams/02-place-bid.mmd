@@ -1,0 +1,25 @@
+%%{init: {"themeVariables": {"fontSize": "18px"}}}%%
+sequenceDiagram
+    participant C as Client
+    participant H as Route Handler
+    participant B as lib/bids.ts
+    participant D as Aurora DSQL
+
+    C->>H: POST /bids { bidderId, amount }
+    H->>B: placeBid()
+    loop until commit or max retries
+        B->>D: BEGIN
+        B->>D: SELECT auction snapshot
+        Note over B: validate status=live,<br/>now < ends_at,<br/>amount ≥ high + increment
+        B->>D: INSERT bid
+        B->>D: UPDATE high bid (+ extend ends_at if anti-snipe)
+        B->>D: COMMIT
+        alt commit succeeds
+            D-->>B: ok
+        else OCC conflict (40001)
+            D-->>B: serialization failure
+            Note over B: ROLLBACK, backoff (jitter), retry
+        end
+    end
+    B-->>H: accepted | rejected (reason) + attempts
+    H-->>C: 200 / 409

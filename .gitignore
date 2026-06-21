@@ -1,7 +1,20 @@
 .DS_Store
 *.log
 
+# Dependencies (defensive — gavellive/ has its own ignore too)
+node_modules/
+
+# Large media (demo recordings live outside the repo)
+*.mov
+*.mp4
+
+# Local tooling artifacts
+diagrams/puppeteer.json
+
 # Env files (the Next scaffold also ignores these inside gavellive/)
 .env
 .env.*
 !.env.example
+
+# AWS console screenshot (submission asset — contains account id/ARN; keep local)
+diagrams/dsql-cluster.png
