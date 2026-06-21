@@ -130,4 +130,8 @@ No login required. Open https://gavellive.vercel.app, pick a bidder in the heade
 
 Next.js · Vercel · v0 · Amazon Aurora DSQL · TypeScript · node-postgres · AWS SDK
 
+## Disclaimer
+
+Product images are royalty-free demo assets from Unsplash. Listings are sample data for demonstration purposes only.
+
 This project was created for the H0 Hackathon. #H0Hackathon

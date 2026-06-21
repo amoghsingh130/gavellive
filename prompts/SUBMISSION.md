@@ -115,6 +115,11 @@ GavelLive makes that guarantee its core feature — and ships a load test that
 
 Next.js · Vercel · v0 · Amazon Aurora DSQL · TypeScript · node-postgres · AWS SDK
 
+## Disclaimer
+
+Product images are royalty-free demo assets from Unsplash. Listings are sample
+data for demonstration purposes only.
+
 ---
 
 ### Hackathon attribution (for the bonus build blog)

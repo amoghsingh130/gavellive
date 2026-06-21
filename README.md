@@ -106,4 +106,7 @@ npm run loadtest             # fire the concurrency proof from the CLI
 
 ---
 
+> **Disclaimer:** Product images are royalty-free demo assets from Unsplash.
+> Listings are sample data for demonstration purposes only.
+
 *This project was created for the H0 Hackathon. #H0Hackathon*
