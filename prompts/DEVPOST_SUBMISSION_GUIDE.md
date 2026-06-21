@@ -38,7 +38,7 @@ Required by the rules and the only missing asset.
 | **Project name** | GavelLive |
 | **Tagline** (≤200 char) | A live auction house that proves correctness under fire: thousands of concurrent bids, zero lost writes, exactly one winner — guaranteed by Amazon Aurora DSQL. |
 | **Full description** | Paste the **Ready-to-paste description** block below. |
-| **Built with** (tags) | nextjs, vercel, v0, amazon-aurora-dsql, typescript, node-postgres, aws-sdk |
+| **Built with** (tags) | nextjs, vercel, amazon-aurora-dsql, typescript, node-postgres, aws-sdk, tailwindcss |
 | **Track / category** | Million-scale global app |
 | **Try it out links** | `https://gavellive.vercel.app` · GitHub `https://github.com/amoghsingh130/gavellive` · Vercel Team ID `team_eoMiFbLGXTmAn1UJyuQgzbgc` |
 | **Video demo** | https://www.youtube.com/watch?v=VnD1zPqk2Gs (confirm Public or Unlisted, **not** Private) |
@@ -91,7 +91,7 @@ GavelLive is a marketplace of timed live auctions. A buyer opens an auction, see
 
 ## How we built it
 
-- Frontend: Next.js (App Router), scaffolded with v0, deployed on Vercel.
+- Frontend: Next.js (App Router) with a hand-built UI, deployed on Vercel.
 - Source of truth: Amazon Aurora DSQL — serializable, strongly consistent, optimistic concurrency control, accessed from Vercel serverless functions via short-lived IAM auth tokens (no static passwords).
 - The correctness core (lib/bids.ts): each bid opens a DSQL transaction — read auction snapshot → validate (live, not ended, ≥ high + increment) → insert bid → update high bid → extend ends_at if inside the anti-snipe window → COMMIT. DSQL aborts conflicting concurrent commits (SQLSTATE 40001); the handler catches it, re-reads, and retries with jittered backoff.
 - Winner finalization: lazy close-on-read — an atomic, anti-snipe-safe conditional UPDATE flips an auction to ended the moment its clock runs out.
@@ -128,7 +128,7 @@ No login required. Open https://gavellive.vercel.app, pick a bidder in the heade
 
 ## Built with
 
-Next.js · Vercel · v0 · Amazon Aurora DSQL · TypeScript · node-postgres · AWS SDK
+Next.js · Vercel · Amazon Aurora DSQL · TypeScript · node-postgres · AWS SDK · Tailwind CSS
 
 ## Disclaimer
 

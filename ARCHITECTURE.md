@@ -13,7 +13,7 @@ source of truth that guarantees correctness under heavy bid concurrency.
 ```mermaid
 flowchart TB
     subgraph Client["Browser"]
-        UI["Next.js App Router UI<br/>(scaffolded with v0)"]
+        UI["Next.js App Router UI"]
     end
 
     subgraph Vercel["Vercel"]
@@ -112,7 +112,7 @@ verifies invariants directly against DSQL:
 
 | Component | Status | Notes |
 |---|---|---|
-| Next.js (App Router) on Vercel | ✅ Built | UI scaffolded with v0 (pending credits) |
+| Next.js (App Router) on Vercel | ✅ Built | Hand-built UI |
 | Aurora DSQL | ✅ Live | Single-region us-east-1; IAM-token auth from serverless |
 | Place-bid OCC transaction + anti-snipe | ✅ Built & proven | `lib/bids.ts` |
 | Winner finalization (lazy close-on-read + force-close) | ✅ Built | `lib/auctions.ts` |

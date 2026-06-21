@@ -62,7 +62,7 @@ GavelLive makes that guarantee its core feature — and ships a load test that
 
 ## How we built it
 
-- **Frontend:** Next.js (App Router), scaffolded with **v0**, deployed on **Vercel**.
+- **Frontend:** Next.js (App Router) with a hand-built UI, deployed on **Vercel**.
 - **Source of truth:** **Amazon Aurora DSQL** — serializable, strongly consistent,
   optimistic concurrency control, accessed from Vercel serverless functions via
   short-lived **IAM auth tokens** (no static passwords).
@@ -113,7 +113,7 @@ GavelLive makes that guarantee its core feature — and ships a load test that
 
 ## Built with
 
-Next.js · Vercel · v0 · Amazon Aurora DSQL · TypeScript · node-postgres · AWS SDK
+Next.js · Vercel · Amazon Aurora DSQL · TypeScript · node-postgres · AWS SDK · Tailwind CSS
 
 ## Disclaimer
 

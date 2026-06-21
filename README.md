@@ -77,8 +77,8 @@ Next.js (App Router) on Vercel
 
 ## Tech stack
 
-Next.js (App Router) · Vercel · v0 · **Amazon Aurora DSQL** · TypeScript ·
-node-postgres · AWS SDK
+Next.js (App Router) · Vercel · **Amazon Aurora DSQL** · TypeScript ·
+node-postgres · AWS SDK · Tailwind CSS
 
 ## Run locally
 
