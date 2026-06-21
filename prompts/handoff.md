@@ -1,17 +1,20 @@
 # GavelLive — H0 Hackathon Handoff
 
 > Handoff for the H0 Hackathon (*Hack the Zero Stack with Vercel v0 + AWS Databases*).
-> Status: **Full app built (backend + polished UI), proven, and deployed to production.**
-> Remaining: demo video + AWS console screenshot; optional deferred differentiators.
+> Status: **Full app built (backend + polished UI), proven, deployed, on public GitHub,
+> with demo video + all submission assets ready.**
+> Remaining: **file the Devpost submission**; optional bonus blog + deferred differentiators.
 
 ---
 
-## 0. Current state (updated 2026-06-19)
+## 0. Current state (updated 2026-06-21)
 
 **Live in production:** https://gavellive.vercel.app · Vercel Team ID `team_eoMiFbLGXTmAn1UJyuQgzbgc`
+**Public GitHub:** https://github.com/amoghsingh130/gavellive (`origin`, branch `main`)
+**Demo video (YouTube):** https://www.youtube.com/watch?v=VnD1zPqk2Gs
 
-Next.js app lives in `gavellive/` (the project root is its own dedicated git repo;
-the home dir is a separate accidental repo — do NOT commit there). No git remote yet.
+Next.js app lives in `gavellive/` (the project root is its own dedicated git repo, now
+pushed to GitHub as `origin`; the home dir is a separate accidental repo — do NOT commit there).
 
 **Done:**
 - ✅ **Phase 1 — Foundation:** Aurora DSQL cluster ACTIVE (single-region us-east-1);
@@ -51,11 +54,33 @@ the home dir is a separate accidental repo — do NOT commit there). No git remo
 - ✅ **Redeployed + re-verified on production** (2026-06-20): `/`, `/auctions`, detail
   all 200; `/api/health/db` green; the streaming stress run executes from the deployed
   Vercel function with **all 4 invariants holding** against live DSQL.
-- ✅ **Submission assets drafted:** `ARCHITECTURE.md`, `SUBMISSION.md`. (Both predate the
-  new landing + live telemetry — refresh before final submission.)
+- ✅ **Submission assets drafted:** `ARCHITECTURE.md`, `SUBMISSION.md`.
 - npm scripts: `db:push`, `seed`, `loadtest` (all use `node --env-file=.env.local`).
   Demo reset: wipe (`DELETE FROM bids/auctions/users`) then `npm run seed` — short-clock
   lots expire and the stress run bids up the Patek, so re-seed for a clean floor.
+
+**Done since 2026-06-19 (this session):**
+- ✅ **Demo video recorded + uploaded to YouTube:** https://www.youtube.com/watch?v=VnD1zPqk2Gs
+  (script in `prompts/DEMO_VIDEO_SCRIPT.md`; final architecture narration tightened). Confirm
+  visibility is Public/Unlisted before submitting.
+- ✅ **AWS proof screenshot captured:** Aurora DSQL console (cluster `gavellive`, us-east-1,
+  Active) saved at `diagrams/dsql-cluster.png`. **Gitignored on purpose** (contains account
+  id/ARN/endpoint) — kept local for the Devpost upload, not published.
+- ✅ **Architecture diagrams rendered:** `diagrams/01-system.png` (system) + `02-place-bid.png`
+  (place-bid sequence), with Mermaid source. Future-work nodes removed; fonts enlarged.
+- ✅ **Repo published + cleaned:** public GitHub repo created; root `README.md` rewritten as
+  the project face; `gavellive/README.md` slimmed to app setup; process/planning docs moved
+  into `prompts/`; `.gitignore` excludes `*.mov`/`*.mp4`, `node_modules`, the DSQL screenshot.
+  The 6.1 GB demo `.mov` stays out of git.
+- ✅ **Submission docs updated:** demo-video link, GitHub link, and an Unsplash/sample-data
+  **disclaimer** added to `README.md` + `prompts/SUBMISSION.md` + `prompts/DEVPOST_SUBMISSION_GUIDE.md`.
+- ✅ **Corrected v0 claim — IMPORTANT:** the UI is **hand-built; v0 was NOT used** (verified:
+  no v0 refs, no `components.json`, no shadcn/radix deps). Removed all "scaffolded with v0" /
+  v0 tech-stack claims from README, SUBMISSION, Devpost guide, ARCHITECTURE, and the diagram.
+  The hackathon's own name ("Vercel v0 + AWS Databases") is left intact. v0 is optional under
+  the rules (AWS DB + deploy on Vercel satisfies eligibility), so dropping it costs nothing.
+- ✅ **New step-by-step Devpost guide:** `prompts/DEVPOST_SUBMISSION_GUIDE.md` (field-by-field
+  form mapping + a single ready-to-paste description block).
 
 **Decisions settled since planning:** Auth = **Clerk** (installed, NOT yet wired —
 build/dev run with zero env vars; activation steps in `gavellive/README.md`).
@@ -63,13 +88,22 @@ DSQL = single-region us-east-1. Deadline "weeks out" (Phase 4 push in scope).
 **v0 is OPTIONAL per official rules** — mandatory reqs are AWS DB (✅ DSQL) + deploy on
 Vercel **or** v0 (✅ Vercel). Both already met; UI can be hand-built, no v0 needed.
 
-**Next (highest ROI):** record the **<3-min demo video** (problem → app footage:
-bidding + outbid toasts + anti-snipe + the live-telemetry concurrency proof → AWS DBs
-used) and grab the **DSQL console screenshot**. Then optional deferred differentiators
-(see `UI_BUILD_PLAN.md` brainstorm): multi-region active-active DSQL, DynamoDB Streams →
-Lambda → WebSocket push fanout, audit ledger, "as-of" time-travel reads, chaos injection,
-seller create-auction flow, Stripe stub, build blog (`#H0Hackathon`). Clerk is installed
-but still not wired.
+**Next steps (in order):**
+1. **File the Devpost submission** — this is the only thing standing between the project and
+   being submitted. Follow `prompts/DEVPOST_SUBMISSION_GUIDE.md`: paste the ready-to-paste
+   description block, add the Vercel link + Team ID + GitHub link + YouTube link, attach
+   `diagrams/01-system.png` (first/thumbnail) and `diagrams/dsql-cluster.png`. Track 3
+   (Million-scale global app). Deadline **Jun 29, 2026**. Devpost allows edits after submit,
+   so submit early.
+2. **Pre-submit checks:** confirm the YouTube video is Public/Unlisted (not Private); confirm
+   https://gavellive.vercel.app and `/auctions` load; re-seed only if you want a clean floor.
+3. **Optional bonus content:** publish a short build blog (dev.to / LinkedIn / builder.aws.com)
+   with `#H0Hackathon` and the required line "This project was created for the H0 Hackathon."
+   Add the link to the Devpost entry afterward.
+4. **Optional deferred differentiators** (see `UI_BUILD_PLAN.md`): multi-region active-active
+   DSQL, DynamoDB Streams → Lambda → WebSocket push fanout, audit ledger, "as-of" time-travel
+   reads, chaos injection, seller create-auction flow, Stripe stub. Clerk is installed but
+   still not wired.
 
 **Credits:** request form submitted 2026-06-19 (Track 3). $100 AWS credits expire
 **Dec 31 2026**; $30 v0 credits expire **July 13 2026** (codes go to asingh3206@gatech.edu;
