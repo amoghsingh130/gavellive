@@ -38,7 +38,8 @@ flowchart TB
     BIDLIB -- "IAM-token auth · TLS<br/>serializable txn (OCC)" --> DSQL
     AUCLIB -- "IAM-token auth · TLS" --> DSQL
 
-    %% ---- Future work (Phase 4: real-time push fanout) ----
+    %% ---- Future work (Phase 4: scale-out — read fanout fans wide; the write
+    %% path stays one serializable txn, so the correctness core is unchanged) ----
     DDB[("DynamoDB<br/>hot-state · bid stream<br/>WS connection registry")]
     STREAMS["DynamoDB Streams"]
     FANOUT["Lambda fanout"]
