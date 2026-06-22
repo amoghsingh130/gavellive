@@ -9,7 +9,7 @@
 ## Submission links
 
 - **Live app (Vercel):** https://gavellive.vercel.app
-- **Demo video (YouTube):** https://www.youtube.com/watch?v=VnD1zPqk2Gs
+- **Demo video (YouTube):** https://www.youtube.com/watch?v=IcCN94iFmVs
 - **Source code (GitHub):** https://github.com/amoghsingh130/gavellive
 - **Vercel Team ID:** `team_eoMiFbLGXTmAn1UJyuQgzbgc`
 - **Live API examples:** `GET https://gavellive.vercel.app/api/health/db` ·
@@ -21,44 +21,51 @@
 
 ## Elevator pitch (≤ 200 chars)
 
-A live auction house that proves correctness under fire: thousands of concurrent
-bids, zero lost writes, exactly one winner — guaranteed by Amazon Aurora DSQL.
+A live-commerce auction platform built to scale to millions — thousands bidding on
+one lot at once, every sale provably correct: zero lost bids, one winner,
+guaranteed by Amazon Aurora DSQL.
 
 ---
 
 ## Inspiration
 
-A live auction is the textbook hard problem in distributed data: many people
-bidding on the same item at the same instant, money on the line, and **no room
-for error**. Two bids must never both "win." The price must only go up. The last
-bid before the clock hits zero must count. Most demos hand-wave this. We wanted
-to *prove* it — on screen — using a database built for exactly this guarantee.
+Live commerce — Whatnot, TikTok live drops, real-time bidding events — is one of
+entertainment's fastest-growing formats, and it's a brutal distributed-systems
+problem the instant it goes global: many people worldwide bidding on the same item
+at the same instant, money on the line, and **no room for error**. Two bids must
+never both "win." The price must only go up. The last bid before the clock hits
+zero must count. Most demos hand-wave this. We wanted to build a live-event
+experience that scales that drama to millions of concurrent bidders *and* prove —
+on screen — that every sale stays correct under load, using a database built for
+exactly this guarantee.
 
 ## What it does
 
-GavelLive is a marketplace of timed live auctions. A buyer opens an auction, sees
-the current price and countdown updating in real time, places a bid, and is told
-instantly whether they're the high bidder or were outbid. Anti-snipe extends the
-clock when a bid lands in the final seconds. When the clock hits zero, exactly one
-winner is finalized from the source of truth.
+GavelLive is a live-commerce experience built around timed live auctions. A buyer
+opens an auction, sees the current price and countdown updating in real time,
+places a bid, and is told instantly whether they're the high bidder or were
+outbid. Anti-snipe extends the clock when a bid lands in the final seconds. When
+the clock hits zero, exactly one winner is finalized from the source of truth.
 
 Under the hood, every bid runs as a **serializable transaction** with an
-optimistic-concurrency retry loop, so the system stays correct no matter how many
-people bid simultaneously.
+optimistic-concurrency retry loop, and the architecture is designed so that same
+flow holds whether ten people or millions of bidders worldwide hit one lot at the
+same instant.
 
 ## Who it's for
 
-Sellers running high-demand timed sales (collectibles, sneakers, art, liquidation)
-and the buyers competing for them — anywhere a wrong price or a duplicate winner
-means lost money and lost trust. The seller-fee / buyer-premium model makes it a
-real marketplace business, not just a tech demo.
+Anyone running or watching high-demand live drops — collectibles, sneakers, art,
+liquidation — the live-commerce audiences that pack platforms like Whatnot. These
+events are global, simultaneous, and unforgiving: a wrong price or a duplicate
+winner means lost money and lost trust, at whatever scale the crowd shows up.
 
 ## Why it matters
 
 Correctness under concurrency is where naive auction apps quietly fail: race
-conditions lose bids, admit duplicate winners, or let the price move backward.
-GavelLive makes that guarantee its core feature — and ships a load test that
-*demonstrates* it rather than asserting it.
+conditions lose bids, admit duplicate winners, or let the price move backward —
+and the failure gets worse the more bidders pile on. GavelLive makes that
+guarantee its core feature, designs an architecture meant to hold at global scale,
+and ships a load test that *demonstrates* it rather than asserting it.
 
 ## How we built it
 
