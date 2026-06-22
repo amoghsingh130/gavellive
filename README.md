@@ -1,14 +1,17 @@
 # GavelLive
 
-**Real-time luxury auction house where the database is the hero.** Hundreds of
-people can bid on the same lot at the same instant — GavelLive proves, on screen,
-that every bid is correct: zero lost writes, a price that only moves up, and
-exactly one winner. That guarantee comes from **Amazon Aurora DSQL**.
+**A real-time live-commerce auction platform built to scale to millions.**
+Collectors compete in live, time-boxed bidding events for high-demand goods —
+watches, cars, jewelry, rare books — the same live-drops format that powers
+modern entertainment commerce. Thousands of people can bid on the same lot at the
+same instant, and GavelLive proves, on screen, that every sale stays correct under
+that load: zero lost writes, a price that only moves up, and exactly one winner.
+That guarantee comes from **Amazon Aurora DSQL**.
 
 > Built for the **H0 Hackathon** (Hack the Zero Stack with Vercel v0 + AWS Databases).
 
 🔗 **Live app:** https://gavellive.vercel.app
-&nbsp;·&nbsp; 🎬 **Demo video:** https://www.youtube.com/watch?v=VnD1zPqk2Gs
+&nbsp;·&nbsp; 🎬 **Demo video:** https://www.youtube.com/watch?v=IcCN94iFmVs
 &nbsp;·&nbsp; **Health check:** [`/api/health/db`](https://gavellive.vercel.app/api/health/db)
 &nbsp;·&nbsp; **Auctions API:** [`/api/auctions`](https://gavellive.vercel.app/api/auctions)
 
@@ -16,13 +19,16 @@ exactly one winner. That guarantee comes from **Amazon Aurora DSQL**.
 
 ## Why it's interesting
 
-A live auction is the textbook hard problem in distributed data: many writers,
-one shared piece of state, money on the line, and **no room for error**. Two bids
-must never both win. The price must only go up. The last bid before the clock hits
-zero must count.
+Live commerce — Whatnot, TikTok live drops, real-time bidding events — is one of
+entertainment's fastest-growing formats, and it's a brutal distributed-systems
+problem the moment it goes global: many writers worldwide, one shared piece of
+state, money on the line, and **no room for error**. Two bids must never both win.
+The price must only go up. The last bid before the clock hits zero must count. Do
+this for one lot, then design it to hold for millions of bidders at once.
 
-Most demos hand-wave this. GavelLive makes correctness its core feature and ships
-a load test that **demonstrates** it instead of asserting it.
+Most demos hand-wave this. GavelLive makes correctness its core feature, builds an
+architecture designed to scale that drama globally, and ships a load test that
+**demonstrates** the guarantee instead of asserting it.
 
 ## The correctness core
 
