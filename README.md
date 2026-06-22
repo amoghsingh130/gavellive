@@ -12,7 +12,7 @@ That guarantee comes from **Amazon Aurora DSQL**.
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=IcCN94iFmVs">
-    <img src="diagrams/thumbnail.png" alt="GavelLive — watch the demo on YouTube" width="640">
+    <img src="diagrams/app-screenshot.png" alt="GavelLive — live Patek auction lot with the Concurrency-proof panel; click to watch the demo on YouTube" width="820">
   </a>
   <br>
   <em>▶ Watch the demo</em>
