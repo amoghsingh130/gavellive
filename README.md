@@ -10,6 +10,14 @@ That guarantee comes from **Amazon Aurora DSQL**.
 
 > Built for the **H0 Hackathon** (Hack the Zero Stack with Vercel v0 + AWS Databases).
 
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=IcCN94iFmVs">
+    <img src="diagrams/thumbnail.png" alt="GavelLive — watch the demo on YouTube" width="640">
+  </a>
+  <br>
+  <em>▶ Watch the demo</em>
+</p>
+
 🔗 **Live app:** https://gavellive.vercel.app
 &nbsp;·&nbsp; 🎬 **Demo video:** https://www.youtube.com/watch?v=IcCN94iFmVs
 &nbsp;·&nbsp; **Health check:** [`/api/health/db`](https://gavellive.vercel.app/api/health/db)
@@ -68,18 +76,14 @@ panel to watch real DSQL transactions race and every invariant turn green.
 ## Architecture
 
 Browser → Next.js route handlers on Vercel → Aurora DSQL (single source of truth),
-over IAM-token auth and TLS. Full diagram and data model in
-[`ARCHITECTURE.md`](ARCHITECTURE.md); rendered images in [`diagrams/`](diagrams/).
+over IAM-token auth and TLS.
 
-```
-Next.js (App Router) on Vercel
-   ├─ POST /api/auctions/:id/bids   → lib/bids.ts   (serializable txn + OCC retry + anti-snipe)
-   ├─ GET  /api/auctions(/:id)      → lib/auctions.ts (reads + lazy close-on-read)
-   └─ POST /api/auctions/:id/close  → winner finalization
-                          │  IAM-token auth · TLS
-                          ▼
-                   Amazon Aurora DSQL  (users · auctions · bids)
-```
+<p align="center">
+  <img src="diagrams/01-system.png" alt="GavelLive system architecture: browser → Next.js route handlers on Vercel → Aurora DSQL" width="640">
+</p>
+
+Full diagram, place-bid sequence, and data model in
+[`ARCHITECTURE.md`](ARCHITECTURE.md); diagram sources in [`diagrams/`](diagrams/).
 
 ## Tech stack
 
